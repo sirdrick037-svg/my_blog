@@ -1,0 +1,12 @@
+{%extends "base.html" %}
+{% load static %}
+{%block title%}Blogs{% endblock title %}
+{% block content %}
+{% for post in posts %}
+
+<h1>{{post.title | upper }}</h1>
+<p>{{post.content | capfirst | truncatewords:10}}</p>
+<a href="{% url 'blog_detail' post.slug %}">Read More</a>
+
+{% endfor %}
+{% endblock content %}

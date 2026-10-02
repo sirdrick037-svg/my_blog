@@ -1,0 +1,20 @@
+{% comment %} this is a comment {% endcomment %}
+<!DOCTYPE html>
+{% load static %}
+<html>
+    <head>
+        <title>{% block title %}My Blog Website{% endblock %}</title>
+        <script src="https://cdn.tailwindcss.com"></script>
+        <link rel="stylesheet" href="{% static 'css/style.css'%}">
+    </head>
+    <body>
+         {% include "navbar.html" %}
+         {% block content %}{% endblock content%} 
+         <footer class="bg-gray-900 text-gray-400 mt-12">
+            <div class="max-w-6xl mx-auto px-6 text-center">
+                <p>&copy; 2026 DevBlogs. Built with Django</p> 
+            </div>
+        </footer>
+    </body>
+ 
+</html>        
