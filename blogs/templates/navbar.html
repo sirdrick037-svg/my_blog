@@ -1,8 +1,33 @@
-<nav class="bg-gray-100 text-gray-900">
-    <ul>
-       <li><a href="/">Home</a></li>
-       <li><a href="/about">About</a></li>
-       <li><a href="/contact">Contact</a></li>
-        <li><a href="/blogs">Blogs</a></li>
-    <ul>
+<nav class="bg-white border-b border-gray-200 dark:bg-gray-900 dark:border-gray-700 sticky top-0 z-50">
+    <ul class="flex items-center justify-center gap-8 h-16">
+        <li>
+            <a href="{%url 'home' %}" class="text-gray-700 hover:text-indigo-600 font-medium transition">
+                Home
+            </a>
+        </li>
+
+        <li>
+            <a href="{%url 'about' %}" class="text-gray-700 hover:text-indigo-600 font-medium transition">
+                About
+            </a>
+        </li>
+
+        <li>
+            <a href="{%url 'contact' %}" class="text-gray-700 hover:text-indigo-600 font-medium transition">
+                Contact
+            </a>
+        </li>
+
+        <li>
+            <a href="{%url 'blogs' %}" class="text-gray-700 hover:text-indigo-600 font-medium transition">
+                Blogs
+            </a>
+        </li>
+
+        <li>
+            <a href="{% url 'create_post' %}" class="text-gray-700 hover:text-indigo-600 font-medium transition">
+                Create Post
+            </a>
+        </li>
+    </ul>
 </nav>
