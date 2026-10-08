@@ -1,8 +1,7 @@
 from django.core.management.base import BaseCommand
-from django.contrib.auth.models import User
 from django.utils import timezone
 
-from blogs.models import Post, Category
+from blogs.models import Author, Post, Category
 
 
 class Command(BaseCommand):
@@ -11,31 +10,27 @@ class Command(BaseCommand):
     def handle(self, *args, **kwargs):
 
         # ---------------------------------------------------------
-        # Create sample user
+        # Create sample author
         # ---------------------------------------------------------
 
-        user, created = User.objects.get_or_create(
-            username="admin",
+        author, created = Author.objects.get_or_create(
+            email="admin@devblogs.com",
             defaults={
-                "email": "admin@devblogs.com",
                 "first_name": "DevBlogs",
                 "last_name": "Admin",
-            }
+            },
         )
 
         if created:
-            user.set_password("admin123")
-            user.save()
-
             self.stdout.write(
                 self.style.SUCCESS(
-                    "Created sample user: admin"
+                    "Created sample author: DevBlogs Admin"
                 )
             )
         else:
             self.stdout.write(
                 self.style.WARNING(
-                    "Sample user already exists: admin"
+                    "Sample author already exists: DevBlogs Admin"
                 )
             )
 
@@ -298,7 +293,7 @@ and then run migrate to apply the changes.
                 continue
 
             Post.objects.create(
-                user=user,
+                author=author,
                 category=categories[post["category"]],
                 title=post["title"],
                 content=post["content"],
