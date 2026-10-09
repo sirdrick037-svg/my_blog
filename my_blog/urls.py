@@ -19,25 +19,27 @@ from django.urls import path, include
 from django.conf.urls import handler404
 from django_registration.backends.one_step.views import RegistrationView
 from django.contrib.auth import views as auth_views
+from two_factor.urls import urlpatterns as two_factor_urlpatterns
 
 
 urlpatterns = [
     path('admin/', admin.site.urls),
     path('', include('blogs.urls')),
+     path('MY project app/', include('allauth.urls')),
+      path('', include((two_factor_urlpatterns[0], 'two_factor'), namespace='two_factor')),
     path('school/', include('school.urls')),
-    path('accounts/register/', RegistrationView.as_view(success_url='/',template_name='registration/register_form.html',), name='django_registration_register'),
+    path('accounts/register/', RegistrationView.as_view(success_url='registration_complete'), name='django_registration_register'),
     path('accounts/', include('django_registration.backends.one_step.urls')),
-    path('accounts/', include('django.contrib.auth.urls')),
-    
-
+    path('accounts/', include('allauth.urls')),
 ]
 
 urlpatterns += [
     path('accounts/', include('django.contrib.auth.urls')),
     path('logout/', auth_views.LogoutView.as_view(), name='logout'),
-    path('password_reset/', auth_views.PasswordResetView.as_view(template_name='registration/password_reset_form.html'), name='password_reset'),
-    path('password_reset/done/', auth_views.PasswordResetDoneView.as_view(template_name='registration/password_reset_done.html'), name='password_reset_done'),
-    path('reset/<uidb64>/<token>/', auth_views.PasswordResetConfirmView.as_view(template_name='registration/password_reset_confirm.html'), name='password_reset_confirm'),
-    path('reset/done/', auth_views.PasswordResetCompleteView.as_view(template_name='registration/password_reset_complete.html'), name='password_reset_complete'),
+#     path('password_reset/', auth_views.PasswordResetView.as_view(template_name='registration/password_reset_form.html'), name='password_reset'),
+#     path('password_reset/done/', auth_views.PasswordResetDoneView.as_view(template_name='registration/password_reset_done.html'), name='password_reset_done'),
+#     path('reset/<uidb64>/<token>/', auth_views.PasswordResetConfirmView.as_view(template_name='registration/password_reset_confirm.html'), name='password_reset_confirm'),
+#     path('reset/done/', auth_views.PasswordResetCompleteView.as_view(template_name='registration/password_reset_complete.html'), name='password_reset_complete'),
+#    
 ]
 handler404 = 'blogs.views.error_404_view'
