@@ -7,9 +7,33 @@
         <script src="https://cdn.tailwindcss.com"></script>
         <link rel="stylesheet" href="{% static 'css/style.css'%}">
     </head>
+    
     <body>
          {% include "navbar.html" %}
          {% block content %}{% endblock content%} 
+         {% if messages %}
+        <div class="fixed top-5 right-5 z-50 flex flex-col gap-2">
+            {% for message in messages %}
+            {% if message.tags == 'success' %}
+                <div class="bg-green-100 border-l-4 border-green-500 text-green-700 p-4 shadow-md rounded">
+                {{ message }}
+                </div>
+            {% elif message.tags == 'error' %}
+                <div class="bg-red-100 border-l-4 border-red-500 text-red-700 p-4 shadow-md rounded">
+                {{ message }}
+                </div>
+            {% elif message.tags == 'warning' %}
+                <div class="bg-yellow-100 border-l-4 border-yellow-500 text-yellow-700 p-4 shadow-md rounded">
+                {{ message }}
+                </div>
+            {% else %}
+                <div class="bg-blue-100 border-l-4 border-blue-500 text-blue-700 p-4 shadow-md rounded">
+                {{ message }}
+                </div>
+            {% endif %}
+            {% endfor %}
+        </div>
+        {% endif %}
          <footer class="bg-gray-900 text-gray-400 mt-12">
             <div class="max-w-6xl mx-auto px-6 text-center">
                 <p>&copy; 2026 DevBlogs. Built with Django</p> 

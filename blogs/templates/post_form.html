@@ -1,4 +1,5 @@
 {% extends "base.html" %}
+{% load crispy_forms_tags %}
 
 {% block title %}
     {{ page_title }} | DevBlogs
@@ -44,6 +45,7 @@
             <form method="POST" enctype="multipart/form-data" class="space-y-6">
 
                 {% csrf_token %}
+                {{ form|crispy }}
 
 
                 <!-- Form Errors -->

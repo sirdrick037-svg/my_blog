@@ -29,5 +29,40 @@
                 Create Post
             </a>
         </li>
+
+        {% if user.is_authenticated %}
+        <li class="text-gray-700 font-medium">
+            Signed in as {{ user.username }}
+        </li>
+        <li>
+            <form method="post" action="{% url 'logout' %}">
+                {% csrf_token %}
+                <button type="submit" class="text-gray-700 hover:text-indigo-600 font-medium transition">
+                    Log Out
+                </button>
+            </form>
+        </li>
+        {% else %}
+        <li>
+            <a href="{% url 'login' %}" class="text-gray-700 hover:text-indigo-600 font-medium transition">
+                
+            </a>
+        </li>
+        {% if user.is_authenticated %}
+                <li>
+                  <form action="{% url 'logout' %}" method="post">
+                    {% csrf_token %}
+                    <button type="submit" class="text-white hover:text-gray-300">Logout</button>
+                  </form>
+                </li>
+            {% else %}
+                <li><a href="{% url 'login' %}" class="text-white hover:text-gray-300">Login</a></li>
+            {% endif %}
+        <li>
+            <a href="{% url 'django_registration_register' %}" class="text-gray-700 hover:text-indigo-600 font-medium transition">
+                Register
+            </a>
+        </li>
+        {% endif %}
     </ul>
 </nav>

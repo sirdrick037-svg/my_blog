@@ -1,14 +1,12 @@
 from django.core.mail import EmailMultiAlternatives
-from django.shortcuts import render,redirect, get_object_or_404
+from django.shortcuts import render, redirect, get_object_or_404
 from django.contrib.auth.decorators import login_required
 from django.http import HttpResponse
 
-from my_blog.my_blog import settings
 from .models import Author, Post, Subscriber
 from .forms import PostForm, SubscribeForm
 from django.views.decorators.http import require_http_methods
 from django.contrib import messages
-from django.core.mail import EmailMultiAlternatives, send_mail
 from django.conf import settings
 from django.utils.html import escape
 
@@ -62,9 +60,11 @@ def create_post(request):
             )
             post.author = author
             post.save()
+            messages.success(request, "Post created successfully.")
             return redirect("blog_detail", slug=post.slug)
     else:
         form = PostForm()
+        messages.error(request, "There was a problem saving the post.")
 
     return render(
         request,
@@ -171,6 +171,11 @@ def _send_subscriber_welcome_email(email):
     )
     message.attach_alternative(html_body, 'text/html')
     message.send(fail_silently=False)
+
+
+def error_404_view(request, exception):
+    return render(request, '404.html', status=404)
+
 
 # try:
 #     post = Post.objects.get(id=post_id)
